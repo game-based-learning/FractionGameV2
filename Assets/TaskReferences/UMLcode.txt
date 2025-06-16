@@ -1,0 +1,71 @@
+https://docs.google.com/document/d/1oiebhaGW44nRCJVKJ3R5uEcQMqXlj9qgtpkNpTo770I/edit?tab=t.0
+
+@startuml
+
+class Fraction {
+  int numerator
+  int denominator
+  +float getValue()
+  +String toString()
+}
+
+
+'Plant stuff
+interface IIngredient
+class Petal {
+  value
+}
+class Plant
+class PlantType {
+  +attributes
+  +petalSprite
+  +stemSprite
+  +numberOfPetals
+}
+class Catalyst {
+  +Fraction value
+}
+
+Plant "1" *-- Petal
+PlantType <|-- ScriptableObject
+Petal *-- PlantType
+Plant *-- PlantType
+Petal <|.. IIngredient
+Catalyst <|.. IIngredient
+Petal <|.. Draggable
+Plant <|.. Draggable
+Potion <|.. Draggable
+Catalyst <|.. Draggable
+
+class Cauldron {
+  +Fraction value
+  -ingredients
+  +void Subtraction()
+}
+
+class Burner {
+  +Fraction toSubtract
+}
+
+class Potion {
+  Fraction value
+  type
+  +void Negate()
+  +void Multiply()
+}
+
+Potion <|.. IIngredient
+Cauldron *-- "N" IIngredient
+
+abstract Draggable
+class RecipeManager << Singleton >> {
+  -Dictionary<RecipeType, IIngredient[]> recipes
+  +RecipeType TryGetRecipe()
+}
+RecipeBook <|.. Draggable
+class RecipeBook {
+  
+}
+@enduml
+
+
