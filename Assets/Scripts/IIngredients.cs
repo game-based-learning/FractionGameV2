@@ -2,7 +2,7 @@
 
 namespace Ingredients
 {
-    public enum IngredientType = {PETAL, POTION, CATALYST}
+    public enum IngredientType {PETAL, POTION, CATALYST}
     /**
      * Interface for ingredients
      */
