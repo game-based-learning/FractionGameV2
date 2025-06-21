@@ -1,4 +1,5 @@
 ﻿using Ingredients;
+using Utility;
 
 namespace Ingredients
 {
@@ -10,7 +11,7 @@ namespace Ingredients
     {
         Fraction Value { get; }
         IngredientType Type { get; }
-        String Name { get; }
+        string Name { get; }
     }
 }
 
