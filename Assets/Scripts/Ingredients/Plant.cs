@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utility;
 
 namespace Ingredients
 {
@@ -16,7 +17,9 @@ namespace Ingredients
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            Fraction testfraction = new Fraction();
+            Debug.Log(testfraction.ToString());
+            Debug.Log(testfraction.Value);
         }
 
         // Update is called once per frame

@@ -20,12 +20,37 @@ namespace Utility
             {
                 if (value == 0)
                 {
-                    throw new System.DivideByZeroException("Denominator cannot be zero.");
+                    Debug.LogError("Denominator cannot be zero.");
                 }
                 denominator = value;
             }
         }
 
-        // TODO: Make get value and to string
+        public float Value
+        {
+            get
+            {
+                return (float)numerator / denominator;
+            }
+        }
+
+        public Fraction(int numerator, int denominator)
+        {
+            this.numerator = numerator;
+            Denominator = denominator; // This will check for zero
+        }
+
+        public Fraction()
+        {
+            numerator = 0;
+            denominator = 1; 
+        }
+
+
+        public override string ToString()
+        {
+            return $"{numerator}/{denominator}";
+        }
+
     }
 }
