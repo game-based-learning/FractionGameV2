@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Ingredients
 {
-    public class Petal : MonoBehaviour
+    public class Petal : MonoBehaviour, IIngredient
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
