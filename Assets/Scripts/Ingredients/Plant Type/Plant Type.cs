@@ -7,6 +7,8 @@ namespace Ingredients
     {
         public Sprite petalSprite;
         public Sprite stemSprite;
+        public string petalName;
+        public string plantName;
         public int numberOfPetals = 0;
         public bool sweet = false;
     }
