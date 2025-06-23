@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using Utility;
+using System.Collections.Generic;
 
 namespace Ingredients
 {
@@ -8,7 +9,7 @@ namespace Ingredients
     {
 
         [SerializeField] private PlantType plantType;
-        // List<Petal> petals = new List<Petal>();
+        List<Petal> petals = new List<Petal>();
 
         public PlantType PlantType
         {
@@ -16,12 +17,32 @@ namespace Ingredients
             // set { plantType = value; }
         }
 
+        private void CreatePlantSprite()
+        {
+            // Create a GameObject for the sprite and set it as a child of this GameObject
+            GameObject spriteObj = new GameObject("Sprite");
+            spriteObj.transform.SetParent(transform);
+            SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = plantType.stemSprite;
+        }
+
+        private void CreatePetals()
+        {
+            for (int i = 0; i < plantType.numberOfPetals; i++)
+            {
+                GameObject petalObj = new GameObject("Petal" + i);
+                petalObj.transform.SetParent(transform);
+                Petal petal = petalObj.AddComponent<Petal>();
+                petal.Initialize(plantType);
+                petals.Add(petal);
+            }
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            Fraction testfraction = new Fraction();
-            Debug.Log(testfraction.ToString());
-            Debug.Log(testfraction.Value);
+            CreatePlantSprite();
+            CreatePetals();
         }
 
         // Update is called once per frame
