@@ -61,10 +61,12 @@ namespace Ingredients
             spriteObj.transform.SetParent(transform);
             SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = plantType.petalSprite;
+            spriteObj.transform.localScale = new Vector3(plantType.petalSize, plantType.petalSize, 1f);
+
 
         }
 
-       
+
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()

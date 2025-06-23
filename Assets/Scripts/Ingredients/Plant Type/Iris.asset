@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18566767d868b046add29ce45187a2a, type: 3}
   m_Name: Iris
   m_EditorClassIdentifier: 
-  petalSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  petalSprite: {fileID: 7482667652216324306, guid: f8396f541d6cf1a4fb131d32a8b3be2c, type: 3}
   stemSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   petalName: irisPetal
   plantName: Iris
