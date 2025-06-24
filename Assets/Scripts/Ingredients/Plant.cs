@@ -21,7 +21,7 @@ namespace Ingredients
         {
             // Create a GameObject for the sprite and set it as a child of this GameObject
             GameObject spriteObj = new GameObject("Sprite");
-            spriteObj.transform.SetParent(transform);
+            spriteObj.transform.SetParent(transform, false);
             SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = plantType.stemSprite;
             spriteObj.transform.localScale = new Vector3(plantType.stemSize, plantType.stemSize, 1f);
@@ -37,7 +37,7 @@ namespace Ingredients
             {
                 // Creating the petal
                 GameObject petalObj = new GameObject("Petal" + i);
-                petalObj.transform.SetParent(transform);
+                petalObj.transform.SetParent(transform, false);
                 Petal petal = petalObj.AddComponent<Petal>();
                 petal.Initialize(plantType, transform.position.z);
                 petals.Add(petal);
@@ -46,7 +46,6 @@ namespace Ingredients
                 petalObj.transform.Rotate(0,0, angle);
                 petalObj.transform.Translate(0, plantType.distance, 0);
                 angle += angleStep;
-
             }
         }
 
