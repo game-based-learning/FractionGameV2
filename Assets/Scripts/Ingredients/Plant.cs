@@ -49,6 +49,38 @@ namespace Ingredients
             }
         }
 
+        /// <summary>
+        /// Detaches the last petal from the plant and destroys the plant when there are no petals remaining.
+        /// </summary>
+        /// <returns> Returns the detached petal. </returns>
+        public Petal DetachPetal()
+        {
+            if (petals.Count == 0)
+            {
+                Debug.LogError("No petals to detach");
+                return null;
+            }
+
+            // Get the last petal from the list
+            int index = petals.Count - 1;
+            Petal lastPetal = petals[index];
+
+            // Remove petal from the list
+            petals.RemoveAt(index);
+
+            // Unparent the petal from the plant
+            lastPetal.transform.SetParent(null);
+
+            if (petals.Count == 0)
+            {
+                // If no petals left, destroy the plant GameObject
+                Destroy(gameObject);    
+            }
+
+            // Return the detached petal   
+            return lastPetal;
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -56,10 +88,5 @@ namespace Ingredients
             CreatePetals();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
