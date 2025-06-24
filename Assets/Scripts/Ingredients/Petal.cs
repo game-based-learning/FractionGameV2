@@ -47,11 +47,10 @@ namespace Ingredients
         /// <summary>
         /// Initialize should be called by Plant when creating Petal
         /// </summary>
-        /// <param name="plantType"></param>
-
-        public void Initialize(PlantType plantType)
+        /// <param name="plantType">PlantType of the parent Plant</param>
+        /// <param name="plantZPos">Position on the Z axis of the parent Plant (used to place the Petal in front of the parent Plant)</param>
+        public void Initialize(PlantType plantType, float plantZPos)
         {
-            
             this.plantType = plantType; 
             name = plantType.petalName; 
             value = new Fraction(1, plantType.numberOfPetals);
@@ -61,9 +60,16 @@ namespace Ingredients
             spriteObj.transform.SetParent(transform);
             SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = plantType.petalSprite;
+
             spriteObj.transform.localScale = new Vector3(plantType.petalSize, plantType.petalSize, 1f);
 
-
+            //Move the Petal in front of the Plant
+            //(This has to happen after creating the Sprite child object.
+            //  Otherwise, Unity will change the local position of the sprite
+            //  so that the sprite's world position stays at zero.
+            //  However, if you do this here, then Unity will move both the Petal and Sprite objects.)
+            float petalZPos = plantZPos - 0.1f;
+            transform.position = new Vector3(transform.position.x, transform.position.y, petalZPos);
         }
 
 

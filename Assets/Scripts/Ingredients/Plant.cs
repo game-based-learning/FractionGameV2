@@ -39,7 +39,7 @@ namespace Ingredients
                 GameObject petalObj = new GameObject("Petal" + i);
                 petalObj.transform.SetParent(transform);
                 Petal petal = petalObj.AddComponent<Petal>();
-                petal.Initialize(plantType);
+                petal.Initialize(plantType, transform.position.z);
                 petals.Add(petal);
 
                 // Set the position of the petal
