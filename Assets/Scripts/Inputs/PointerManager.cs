@@ -46,15 +46,18 @@ namespace Inputs
                     // Attach the petal to the pointer object.
                     attached = gameObject;
                     attached.transform.SetParent(transform);
+                    attached.GetComponent<Draggable>().Attach();
                 }
             }
         }
 
         private void mouseUp(InputAction.CallbackContext context)
         {
+            // If any gameObjects are attached, detach them
             if (attached != null)
             {
                 attached.transform.SetParent(null);
+                attached.GetComponent<Draggable>().Detach();
                 attached = null;
             }
         }
