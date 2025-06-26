@@ -22,6 +22,8 @@ namespace Utility
             // If already held, ignore
             if (isHeld) return;
 
+            // Foreground
+            GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
             isHeld = true;
         }
 
@@ -34,6 +36,8 @@ namespace Utility
             // If not held, ignore
             if (!isHeld) return;
 
+            // Send to Default
+            GetComponent<SpriteRenderer>().sortingLayerName = "Default";
             isHeld = false;
         }
     }
