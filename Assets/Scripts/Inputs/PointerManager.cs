@@ -28,22 +28,25 @@ namespace Inputs
 
         private void FixedUpdate()
         {
+            // Used to ensure that draggbale follows this object by tracking mouse position
             transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
 
         private void mouseDown(InputAction.CallbackContext context)
         {
+            // Get a ray from the mouse position on the screen pointing into the screen
             Vector3 mousePos = Input.mousePosition;
             Ray ray = mainCamera.ScreenPointToRay(mousePos);
-            // Creates a temporary list of hits
+            // Creates a temporary list of hits to store all items hit
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
             if (Physics2D.GetRayIntersection(ray, 50, hits, -5) > 0)
             {
+                // Grab the first hit object, ie the highest in the sorting order
                 GameObject gameObject = hits[0].transform.gameObject;
                 Draggable item = gameObject.GetComponent<Draggable>();
                 if (item != null)
                 {
-                    // Attach the petal to the pointer object.
+                    // Attach the draggable item to the pointer object.
                     attached = gameObject;
                     attached.transform.SetParent(transform);
                     attached.GetComponent<Draggable>().Attach();
