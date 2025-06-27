@@ -16,7 +16,8 @@ namespace Utility
         protected virtual void Awake()
         {
             isHeld = false;
-            sortingOrder = ++highestSortingOrder;
+            highestSortingOrder++;
+            sortingOrder = highestSortingOrder;
             // Add self to static instances list to track sorting order
             instances.Add(this);
         }
@@ -38,9 +39,13 @@ namespace Utility
 
             // Send sprite to foreground layer
             GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
-            sortingOrder = ++highestSortingOrder;
+            highestSortingOrder++;
+            sortingOrder = highestSortingOrder;
             // If highestSortingOrder is too high, renormalize it
-            if (highestSortingOrder > 100) RenormalizeSortingOrder();
+            if (highestSortingOrder > 100)
+            {
+                RenormalizeSortingOrder();
+            }
             isHeld = true;
         }
 
@@ -67,7 +72,10 @@ namespace Utility
             List<Draggable> normInstances = instances.OrderBy(item => item.sortingOrder).ToList();
             highestSortingOrder = normInstances.Count;
 
-            for (int i = 0; i < highestSortingOrder; i++) normInstances[i].sortingOrder = i;
+            for (int i = 0; i < highestSortingOrder; i++)
+            {
+                normInstances[i].sortingOrder = i;
+            }
         }
     }
 }

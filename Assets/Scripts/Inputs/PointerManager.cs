@@ -20,22 +20,30 @@ namespace Inputs
             click = inputActions.UI.Click;
 
             // Subscribe the hold and release of the clicks
-            click.started += mouseDown;
-            click.canceled += mouseUp;
+            click.started += MouseDown;
+            click.canceled += MouseUp;
+        }
 
+        private void OnEnable()
+        {
             click.Enable();
         }
 
-        private void FixedUpdate()
+        private void OnDisable()
         {
-            // Used to ensure that draggbale follows this object by tracking mouse position
-            transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            click.Disable();
         }
 
-        private void mouseDown(InputAction.CallbackContext context)
+        private void Update()
+        {
+            // Used to ensure that draggbale follows this object by tracking mouse position
+            transform.position = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        }
+
+        private void MouseDown(InputAction.CallbackContext context)
         {
             // Get a ray from the mouse position on the screen pointing into the screen
-            Vector3 mousePos = Input.mousePosition;
+            Vector3 mousePos = Mouse.current.position.ReadValue();
             Ray ray = mainCamera.ScreenPointToRay(mousePos);
             // Creates a temporary list of hits to store all items hit
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
@@ -54,7 +62,7 @@ namespace Inputs
             }
         }
 
-        private void mouseUp(InputAction.CallbackContext context)
+        private void MouseUp(InputAction.CallbackContext context)
         {
             // If any gameObjects are attached, detach them
             if (attached != null)
