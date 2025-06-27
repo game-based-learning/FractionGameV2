@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18566767d868b046add29ce45187a2a, type: 3}
+  m_Name: Iris
+  m_EditorClassIdentifier: 
+  petalSprite: {fileID: -1349423991985832505, guid: 1b3a5e8b8ce80d940ae997e817ca2ba3, type: 3}
+  petalSize: 5
+  stemSprite: {fileID: -2678759499543837309, guid: ebfa98063ac9b974c9a4c684d9aea730, type: 3}
+  stemSize: 10
+  petalName: irisPetal
+  plantName: Iris
+  numberOfPetals: 3
+  distance: 2.5
+  sweet: 0
