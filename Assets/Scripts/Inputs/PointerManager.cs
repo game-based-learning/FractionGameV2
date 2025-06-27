@@ -18,19 +18,23 @@ namespace Inputs
             mainCamera = Camera.main;
             inputActions = new InputSystem_Actions();
             click = inputActions.UI.Click;
-
-            // Subscribe the hold and release of the clicks
-            click.started += MouseDown;
-            click.canceled += MouseUp;
         }
 
         private void OnEnable()
         {
+            // Subscribe the hold and release of the clicks
+            click.started += MouseDown;
+            click.canceled += MouseUp;
+
             click.Enable();
         }
 
         private void OnDisable()
         {
+            // Unsubscribe the click hold and release events
+            click.started -= MouseDown;
+            click.canceled -= MouseUp;
+
             click.Disable();
         }
 
@@ -42,6 +46,8 @@ namespace Inputs
 
         private void MouseDown(InputAction.CallbackContext context)
         {
+            // Used to ensure that draggbale follows this object by tracking mouse position
+            transform.position = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             // Get a ray from the mouse position on the screen pointing into the screen
             Vector3 mousePos = Mouse.current.position.ReadValue();
             Ray ray = mainCamera.ScreenPointToRay(mousePos);
