@@ -1,9 +1,9 @@
 using NUnit.Framework;
 using UnityEngine;
-using Utility;
+using FractionGame.Utility;
 using System.Collections.Generic;
 
-namespace Ingredients
+namespace FractionGame.Ingredients
 {
     public class Plant : MonoBehaviour
     {

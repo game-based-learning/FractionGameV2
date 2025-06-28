@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Utility
+namespace FractionGame.Utility
 {
     public abstract class Draggable : MonoBehaviour
     {

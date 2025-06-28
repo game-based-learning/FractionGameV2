@@ -1,4 +1,4 @@
-using Ingredients;
+using FractionGame.Ingredients;
 using UnityEngine;
 
 public class PlantTest : MonoBehaviour

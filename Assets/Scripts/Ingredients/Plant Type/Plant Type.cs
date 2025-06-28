@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Ingredients
+namespace FractionGame.Ingredients
 {
     [CreateAssetMenu(fileName = "PlantType", menuName = "Scriptable Objects/PlantType")]
     public class PlantType : ScriptableObject

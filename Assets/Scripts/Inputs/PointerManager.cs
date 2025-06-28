@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utility;
+using FractionGame.Utility;
 
-namespace Inputs
+namespace FractionGame.Inputs
 {
     public class PointerManager : MonoBehaviour
     {

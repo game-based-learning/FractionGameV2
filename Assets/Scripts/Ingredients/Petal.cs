@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using Utility;
+using FractionGame.Utility;
 
-namespace Ingredients
+namespace FractionGame.Ingredients
 {
     public class Petal : MonoBehaviour, IIngredient
     {
