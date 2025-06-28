@@ -9,7 +9,8 @@ namespace FractionGame.Ingredients
     {
 
         [SerializeField] private PlantType plantType;
-        List<Petal> petals = new List<Petal>();
+        //List<Petal> petals = new List<Petal>();
+        int numPetalsRemaining;
 
         public PlantType PlantType
         {
@@ -51,16 +52,18 @@ namespace FractionGame.Ingredients
                 petalObj.transform.SetParent(transform, false);
                 Petal petal = petalObj.AddComponent<Petal>();
                 petal.Initialize(plantType, transform.position.z);
-                petals.Add(petal);
+                //petals.Add(petal);
 
                 // Set the position of the petal
                 petalObj.transform.Rotate(0,0, angle);
                 petalObj.transform.Translate(0, plantType.distance, 0);
                 angle += angleStep;
             }
+
+            numPetalsRemaining = plantType.numberOfPetals;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Detaches the last petal from the plant and destroys the plant when there are no petals remaining.
         /// </summary>
         /// <returns> Returns the detached petal. </returns>
@@ -90,6 +93,18 @@ namespace FractionGame.Ingredients
 
             // Return the detached petal   
             return lastPetal;
+        }*/
+
+        public void HandlePetalDetaching()
+        {
+            numPetalsRemaining--;
+            Debug.Log("Number of Petals remaining for " + name + ": " + numPetalsRemaining);
+
+            if (numPetalsRemaining == 0)
+            {
+                // If no petals left, destroy the plant GameObject
+                Destroy(gameObject);
+            }
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created

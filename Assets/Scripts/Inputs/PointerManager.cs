@@ -62,8 +62,16 @@ namespace FractionGame.Inputs
                 {
                     // Attach the draggable item to the pointer object.
                     attached = gameObject;
+                    Transform previousParent = attached.transform.parent;
                     attached.transform.SetParent(transform);
-                    attached.GetComponent<Draggable>().Attach();
+                    if (previousParent)
+                    {
+                        attached.GetComponent<Draggable>().Attach(previousParent.gameObject);
+                    }
+                    else
+                    {
+                        attached.GetComponent<Draggable>().Attach(null);
+                    }
                 }
             }
         }

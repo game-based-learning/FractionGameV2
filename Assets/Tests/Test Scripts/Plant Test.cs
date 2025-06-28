@@ -9,6 +9,6 @@ public class PlantTest : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("Detaching petal...");
-        Debug.Log(plant.DetachPetal());
+        //Debug.Log(plant.DetachPetal());
     }
 }
