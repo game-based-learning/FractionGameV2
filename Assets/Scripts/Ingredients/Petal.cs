@@ -4,7 +4,7 @@ using FractionGame.Utility;
 
 namespace FractionGame.Ingredients
 {
-    public class Petal : MonoBehaviour, IIngredient
+    public class Petal : Draggable, IIngredient
     {
 
         private Fraction value;
@@ -55,7 +55,7 @@ namespace FractionGame.Ingredients
             name = plantType.petalName; 
             value = new Fraction(1, plantType.numberOfPetals);
 
-            // Create a GameObject for the sprite and set it as a child of this GameObject
+            /*// Create a GameObject for the sprite and set it as a child of this GameObject
             GameObject spriteObj = new GameObject("Sprite");
             spriteObj.transform.SetParent(transform, false);
             SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
@@ -65,7 +65,25 @@ namespace FractionGame.Ingredients
 
             //Move the Petal in front of the Plant
             float petalZPos = plantZPos - 0.1f;
-            transform.position = new Vector3(transform.position.x, transform.position.y, petalZPos);
+            transform.position = new Vector3(transform.position.x, transform.position.y, petalZPos);*/
+
+
+            // Create a GameObject for the sprite and set it as a child of this GameObject
+            transform.SetParent(transform, false);
+            SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = plantType.petalSprite;
+
+            //plantType.petalSize / plantType.stemSize to account for increase in scale already present from the Plant scaling
+            gameObject.transform.localScale = new Vector3(plantType.petalSize / plantType.stemSize, plantType.petalSize / plantType.stemSize, 1f);
+
+            //Add collider so that Draggable will work
+            gameObject.AddComponent<CircleCollider2D>();
+
+            //Move the Petal in front of the Plant
+            //float petalZPos = plantZPos - 0.1f;
+            //transform.position = new Vector3(transform.position.x, transform.position.y, petalZPos);
+
+
         }
     }
 }

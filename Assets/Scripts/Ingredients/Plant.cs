@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FractionGame.Ingredients
 {
-    public class Plant : MonoBehaviour
+    public class Plant : Draggable
     {
 
         [SerializeField] private PlantType plantType;
@@ -19,13 +19,24 @@ namespace FractionGame.Ingredients
 
         private void CreatePlantSprite()
         {
-            // Create a GameObject for the sprite and set it as a child of this GameObject
+            /*// Create a GameObject for the sprite and set it as a child of this GameObject
             GameObject spriteObj = new GameObject("Sprite");
             spriteObj.transform.SetParent(transform, false);
             SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = plantType.stemSprite;
             spriteObj.transform.localScale = new Vector3(plantType.stemSize, plantType.stemSize, 1f);
 
+            //Add collider so that Draggable will work
+            spriteObj.AddComponent<CircleCollider2D>();*/
+
+            // Create a GameObject for the sprite and set it as a child of this GameObject
+            transform.SetParent(transform, false);
+            SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = plantType.stemSprite;
+            transform.localScale = new Vector3(plantType.stemSize, plantType.stemSize, 1f);
+
+            //Add collider so that Draggable will work
+            gameObject.AddComponent<CircleCollider2D>();
         }
 
         private void CreatePetals()
