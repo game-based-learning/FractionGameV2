@@ -10,17 +10,23 @@ namespace FractionGame.Ingredients
 
         [SerializeField] private PlantType plantType;
         //List<Petal> petals = new List<Petal>();
-        int numPetalsRemaining;
+        private int numPetalsRemaining;
 
         public PlantType PlantType
         {
             get { return plantType; }
-            // set { plantType = value; }
+            set { plantType = value; }
         }
 
-        private void CreatePlantSprite()
+        /*public void Initialize(PlantType plantType)
         {
-            /*// Create a GameObject for the sprite and set it as a child of this GameObject
+            //this.plantType = plantType;
+            //numPetalsRemaining = plantType.numberOfPetals;
+        }*/
+
+        /*private void CreatePlantSprite()
+        {
+            // Create a GameObject for the sprite and set it as a child of this GameObject
             GameObject spriteObj = new GameObject("Sprite");
             spriteObj.transform.SetParent(transform, false);
             SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
@@ -28,7 +34,7 @@ namespace FractionGame.Ingredients
             spriteObj.transform.localScale = new Vector3(plantType.stemSize, plantType.stemSize, 1f);
 
             //Add collider so that Draggable will work
-            spriteObj.AddComponent<CircleCollider2D>();*/
+            spriteObj.AddComponent<CircleCollider2D>();
 
             // Create a GameObject for the sprite and set it as a child of this GameObject
             transform.SetParent(transform, false);
@@ -38,9 +44,9 @@ namespace FractionGame.Ingredients
 
             //Add collider so that Draggable will work
             gameObject.AddComponent<CircleCollider2D>();
-        }
+        }*/
 
-        private void CreatePetals()
+        /*private void CreatePetals()
         {
             float angleStep = 360f / plantType.numberOfPetals;
             float angle = 0f;
@@ -56,12 +62,12 @@ namespace FractionGame.Ingredients
 
                 // Set the position of the petal
                 petalObj.transform.Rotate(0,0, angle);
-                petalObj.transform.Translate(0, plantType.distance, 0);
+                //petalObj.transform.Translate(0, plantType.distance, 0);
                 angle += angleStep;
             }
 
             numPetalsRemaining = plantType.numberOfPetals;
-        }
+        }*/
 
         /*/// <summary>
         /// Detaches the last petal from the plant and destroys the plant when there are no petals remaining.
@@ -110,8 +116,9 @@ namespace FractionGame.Ingredients
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            CreatePlantSprite();
-            CreatePetals();
+            //CreatePlantSprite();
+            //CreatePetals();
+            numPetalsRemaining = plantType.numberOfPetals;
         }
 
     }

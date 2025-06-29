@@ -9,7 +9,7 @@ namespace FractionGame.Ingredients
 
         private Fraction value;
         private string nameStr; // can't be 'name' because it conflicts with Unity's GameObject name property
-        private PlantType plantType;
+        [SerializeField] private PlantType plantType;
 
         public Fraction Value 
         { 
@@ -44,15 +44,20 @@ namespace FractionGame.Ingredients
             set { plantType = value; }
         }
 
+        void Start()
+        {
+            nameStr = plantType.petalName;
+            value = new Fraction(1, plantType.numberOfPetals);
+        }
+
         /// <summary>
         /// Initialize should be called by Plant when creating Petal
         /// </summary>
         /// <param name="plantType">PlantType of the parent Plant</param>
-        /// <param name="plantZPos">Position on the Z axis of the parent Plant (used to place the Petal in front of the parent Plant)</param>
-        public void Initialize(PlantType plantType, float plantZPos)
+        public void Initialize(PlantType plantType)
         {
             this.plantType = plantType; 
-            name = plantType.petalName; 
+            nameStr = plantType.petalName; 
             value = new Fraction(1, plantType.numberOfPetals);
 
             /*// Create a GameObject for the sprite and set it as a child of this GameObject
@@ -69,15 +74,15 @@ namespace FractionGame.Ingredients
 
 
             // Create a GameObject for the sprite and set it as a child of this GameObject
-            transform.SetParent(transform, false);
-            SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = plantType.petalSprite;
+            //transform.SetParent(transform, false);
+            //SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+            //spriteRenderer.sprite = plantType.petalSprite;
 
             //plantType.petalSize / plantType.stemSize to account for increase in scale already present from the Plant scaling
-            gameObject.transform.localScale = new Vector3(plantType.petalSize / plantType.stemSize, plantType.petalSize / plantType.stemSize, 1f);
+            //gameObject.transform.localScale = new Vector3(plantType.petalSize / plantType.stemSize, plantType.petalSize / plantType.stemSize, 1f);
 
             //Add collider so that Draggable will work
-            gameObject.AddComponent<CircleCollider2D>();
+            //gameObject.AddComponent<CircleCollider2D>();
 
             //Move the Petal in front of the Plant
             //float petalZPos = plantZPos - 0.1f;

@@ -38,21 +38,47 @@ namespace FractionGame.Editor.PlantPrefabCreator
             VisualElement root = rootVisualElement;
 
             // VisualElements objects can contain other VisualElement following a tree hierarchy.
-            VisualElement label = new Label("Hello World! From C#");
-            root.Add(label);
+            //VisualElement label = new Label("Hello World! From C#");
+            //root.Add(label);
 
-            //Add Fields Here:
-            CreateField("Select PlantType:", "PlantType", typeof(PlantType), FieldCategory.UnityObject, root);
-            CreateField("Select Sprite:", "Sprite", typeof(Sprite), FieldCategory.UnityObject, root);
-            CreateField("Select String:", "String", typeof(string), FieldCategory.String, root);
-            CreateField("Select Integer:", "Integer", typeof(int), FieldCategory.Integer, root);
-            CreateField("Select Float:", "Float", typeof(float), FieldCategory.Float, root);
-            CreateField("Select Boolean:", "Boolean", typeof(bool), FieldCategory.Boolean, root);
+
+            /** Add Fields Here: **/
+
+            AddSpace(root);
+
+            CreateField("Plant Object Name:", "Name", typeof(string), FieldCategory.String, root);
+            CreateField("PlantType:", "PlantType", typeof(PlantType), FieldCategory.UnityObject, root);
+
+            AddSpace(root);
+
+            CreateField("Stem Sprite:", "StemSprite", typeof(Sprite), FieldCategory.UnityObject, root);
+            CreateField("Stem Size:", "StemSize", typeof(float), FieldCategory.Float, root, "1.0");
+
+            AddSpace(root);
+
+            CreateField("Petal Sprite:", "PetalSprite", typeof(Sprite), FieldCategory.UnityObject, root);
+            CreateField("Petal Size:", "PetalSize", typeof(float), FieldCategory.Float, root, "1.0");
+
+            AddSpace(root);
+
+            CreateField("Distance from the center of the plant to the petal:", "Distance", typeof(float), FieldCategory.Float, root, "1.0");
+
+            AddSpace(root);
+
+            /** **************** **/
+
 
             //Submission button
             Button button = new Button { text = "Create Plant Prefab" };
             button.clicked += OnClick;
             root.Add(button);
+        }
+
+        private void AddSpace(VisualElement root)
+        {
+            //ToolbarSpacer space = new ToolbarSpacer();
+            Label space = new Label("***");
+            root.Add(space);
         }
 
         /// <summary>
@@ -63,13 +89,9 @@ namespace FractionGame.Editor.PlantPrefabCreator
         /// <param name="type">Type the user can input in the editor</param>
         /// <param name="fieldCategory">Used to determine what kind of VisualElement to create</param>
         /// <param name="root">Root Visual Element</param>
-        private void CreateField(string label, string key, Type type, FieldCategory fieldCategory, VisualElement root)
+        /// <param name="defaultValue">Optional Default Value (written as a string, not implemented for Unity Object)</param>
+        private void CreateField(string label, string key, Type type, FieldCategory fieldCategory, VisualElement root, string defaultValue = "")
         {
-            /*ObjectField objectField = new ObjectField(label);
-            objectField.objectType = type;
-            root.Add(objectField);
-            fields.Add(key, objectField);*/
-
             VisualElement field;
 
             switch (fieldCategory)
@@ -77,15 +99,28 @@ namespace FractionGame.Editor.PlantPrefabCreator
                 case FieldCategory.String:
                     field = new TextField();
                     ((TextField)field).label = label;
+                    ((TextField)field).textEdition.placeholder = defaultValue;
                     break;
                 case FieldCategory.Float:
                     field = new FloatField(label);
+                    if (float.TryParse(defaultValue, out float floatVal))
+                    {
+                        ((FloatField)field).value = floatVal;
+                    }
                     break;
                 case FieldCategory.Integer:
                     field = new IntegerField(label);
+                    if (int.TryParse(defaultValue, out int intVal))
+                    {
+                        ((IntegerField)field).value = intVal;
+                    }
                     break;
                 case FieldCategory.Boolean:
                     field = new Toggle(label);
+                    if (bool.TryParse(defaultValue, out bool boolVal))
+                    {
+                        ((Toggle)field).value = boolVal;
+                    }
                     break;
                 case FieldCategory.UnityObject:
                     field = new ObjectField(label);
@@ -103,6 +138,34 @@ namespace FractionGame.Editor.PlantPrefabCreator
         void OnClick()
         {
             PlantPrefabCreator creator = new PlantPrefabCreator(fields);
+            GameObject plantPrefab = creator.Create();
+
+            if(plantPrefab)
+            {
+                StorePrefab(plantPrefab);
+            }
+        }
+
+        private void StorePrefab(GameObject prefab)
+        {
+            string localPath = "Assets/Prefabs/PlantPrefabs/" + prefab.name + ".prefab";
+
+            if(AssetDatabase.AssetPathExists(localPath))
+            {
+                Debug.LogError(prefab.name + ".prefab already exists.");
+                return;
+            }
+
+            bool saveSuccess;
+            PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, localPath, InteractionMode.UserAction, out saveSuccess);
+            if (saveSuccess)
+            {
+                Debug.Log(prefab.name + ".prefab was saved successfully");
+            }
+            else
+            {
+                Debug.LogError(prefab.name + ".prefab NOT SAVED");
+            }
         }
     }
 }
