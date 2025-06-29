@@ -8,23 +8,8 @@ using UnityEngine.UIElements;
 
 namespace FractionGame.Editor.PlantPrefabCreator
 {
-    public class PlantPrefabCreatorEditorWindow : EditorWindow
+    public class PlantPrefabCreatorEditorWindow : CustomEditorWindow
     {
-        Dictionary<String, VisualElement> fields = new Dictionary<String, VisualElement>();
-
-        //These are the field options that have been implemented below
-        //They will be used to determine what kind of VisualElement to create
-        //(Unity does support others if we need to add more)
-        //Field category list offered by Unity: https://docs.unity3d.com/6000.1/Documentation/Manual/UIE-ElementRef.html
-        enum FieldCategory
-        {
-            String,
-            Float,
-            Integer,
-            Boolean,
-            UnityObject
-        }
-        
         [MenuItem("Window/Custom Editor Windows/Plant Prefab Creator")]
         public static void ShowWindow()
         {
@@ -38,33 +23,36 @@ namespace FractionGame.Editor.PlantPrefabCreator
             VisualElement root = rootVisualElement;
 
             // VisualElements objects can contain other VisualElement following a tree hierarchy.
-            //VisualElement label = new Label("Hello World! From C#");
-            //root.Add(label);
-
 
             /** Add Fields Here: **/
 
             AddSpace(root);
 
-            CreateField("Plant Object Name:", "Name", typeof(string), FieldCategory.String, root);
-            CreateField("PlantType:", "PlantType", typeof(PlantType), FieldCategory.UnityObject, root);
+            CreateStringField("Plant Object Name:", "Name", root);
+            CreateField("PlantType:", "PlantType", typeof(PlantType), root);
 
             AddSpace(root);
 
-            CreateField("Stem Sprite:", "StemSprite", typeof(Sprite), FieldCategory.UnityObject, root);
-            CreateField("Stem Size:", "StemSize", typeof(float), FieldCategory.Float, root, "1.0");
+            CreateField("Stem Sprite:", "StemSprite", typeof(Sprite), root);
+            CreateFloatField("Stem Size:", "StemSize", root, 1.0f);
             CreateDropdown(root, "Plant Collider Type:", "PlantCollider", "Circle Collider 2D", "Box Collider 2D", "Capsule Collider 2D", "No Collider");
 
             AddSpace(root);
 
-            CreateField("Petal Sprite:", "PetalSprite", typeof(Sprite), FieldCategory.UnityObject, root);
-            CreateField("Petal Size:", "PetalSize", typeof(float), FieldCategory.Float, root, "1.0");
+            CreateField("Petal Sprite:", "PetalSprite", typeof(Sprite), root);
+            CreateFloatField("Petal Size:", "PetalSize", root, 1.0f);
             CreateDropdown(root, "Petal Collider Type:", "PetalCollider", "Circle Collider 2D", "Box Collider 2D", "Capsule Collider 2D", "No Collider");
 
             AddSpace(root);
 
-            CreateField("Distance from the center of the plant to the petal:", "Distance", typeof(float), FieldCategory.Float, root, "1.0");
+            CreateFloatField("Distance from the center of the plant to the petal:", "Distance", root, 1.0f);
 
+            AddSpace(root);
+
+            CreateIntegerField("TestInt:", "TestInt", root, 42);
+            CreateBooleanField("TestBool:", "TestBool", root, true);
+            CreateIntegerField("TestInt2:", "TestInt2", root);
+            CreateBooleanField("TestBool2:", "TestBool2", root);
             AddSpace(root);
 
             /** **************** **/
@@ -74,80 +62,6 @@ namespace FractionGame.Editor.PlantPrefabCreator
             Button button = new Button { text = "Create Plant Prefab" };
             button.clicked += OnClick;
             root.Add(button);
-        }
-
-        private void AddSpace(VisualElement root)
-        {
-            //ToolbarSpacer space = new ToolbarSpacer();
-            Label space = new Label("***");
-            root.Add(space);
-        }
-
-        private void CreateDropdown(VisualElement root, string label, string key, params string[] options)
-        {
-            DropdownField field = new DropdownField(label);
-
-            foreach (string option in options)
-            {
-                field.choices.Add(option);
-            }
-
-            root.Add(field);
-            fields.Add(key, field);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="label">Label that will be displayed next to the field in the editor window.</param>
-        /// <param name="key">Key that PlantPrefabCreator will use to access this field from the Dictionary</param>
-        /// <param name="type">Type the user can input in the editor</param>
-        /// <param name="fieldCategory">Used to determine what kind of VisualElement to create</param>
-        /// <param name="root">Root Visual Element</param>
-        /// <param name="defaultValue">Optional Default Value (written as a string, not implemented for Unity Object)</param>
-        private void CreateField(string label, string key, Type type, FieldCategory fieldCategory, VisualElement root, string defaultValue = "")
-        {
-            VisualElement field;
-
-            switch (fieldCategory)
-            {
-                case FieldCategory.String:
-                    field = new TextField();
-                    ((TextField)field).label = label;
-                    ((TextField)field).textEdition.placeholder = defaultValue;
-                    break;
-                case FieldCategory.Float:
-                    field = new FloatField(label);
-                    if (float.TryParse(defaultValue, out float floatVal))
-                    {
-                        ((FloatField)field).value = floatVal;
-                    }
-                    break;
-                case FieldCategory.Integer:
-                    field = new IntegerField(label);
-                    if (int.TryParse(defaultValue, out int intVal))
-                    {
-                        ((IntegerField)field).value = intVal;
-                    }
-                    break;
-                case FieldCategory.Boolean:
-                    field = new Toggle(label);
-                    if (bool.TryParse(defaultValue, out bool boolVal))
-                    {
-                        ((Toggle)field).value = boolVal;
-                    }
-                    break;
-                case FieldCategory.UnityObject:
-                    field = new ObjectField(label);
-                    ((ObjectField)field).objectType = type;
-                    break;
-                default:
-                    Debug.LogError("Field Category not implemented");
-                    return;
-            }
-
-            root.Add(field);
-            fields.Add(key, field);
         }
 
         void OnClick()
