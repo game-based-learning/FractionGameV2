@@ -49,12 +49,6 @@ namespace FractionGame.Editor.PlantPrefabCreator
 
             AddSpace(root);
 
-            CreateIntegerField("TestInt:", "TestInt", root, 42);
-            CreateBooleanField("TestBool:", "TestBool", root, true);
-            CreateIntegerField("TestInt2:", "TestInt2", root);
-            CreateBooleanField("TestBool2:", "TestBool2", root);
-            AddSpace(root);
-
             /** **************** **/
 
 
@@ -62,6 +56,10 @@ namespace FractionGame.Editor.PlantPrefabCreator
             Button button = new Button { text = "Create Plant Prefab" };
             button.clicked += OnClick;
             root.Add(button);
+
+            //Comment out this line to use default values instead of previous values
+            //DOES NOT WORK
+            //CustomScriptableSingleton.instance.LoadPlantPrefabEditor(fields);
         }
 
         void OnClick()
@@ -95,6 +93,13 @@ namespace FractionGame.Editor.PlantPrefabCreator
             {
                 Debug.LogError(prefab.name + ".prefab NOT SAVED");
             }
+        }
+
+        private void OnDisable()
+        {
+            //Comment out this line to use default values instead of previous values
+            //DOES NOT WORK
+            //CustomScriptableSingleton.instance.SavePlantPrefabEditor(fields);
         }
     }
 }
