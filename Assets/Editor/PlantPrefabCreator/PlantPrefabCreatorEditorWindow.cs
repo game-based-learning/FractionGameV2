@@ -53,11 +53,13 @@ namespace FractionGame.Editor.PlantPrefabCreator
 
             CreateField("Stem Sprite:", "StemSprite", typeof(Sprite), FieldCategory.UnityObject, root);
             CreateField("Stem Size:", "StemSize", typeof(float), FieldCategory.Float, root, "1.0");
+            CreateDropdown(root, "Plant Collider Type:", "PlantCollider", "Circle Collider 2D", "Box Collider 2D", "Capsule Collider 2D", "No Collider");
 
             AddSpace(root);
 
             CreateField("Petal Sprite:", "PetalSprite", typeof(Sprite), FieldCategory.UnityObject, root);
             CreateField("Petal Size:", "PetalSize", typeof(float), FieldCategory.Float, root, "1.0");
+            CreateDropdown(root, "Petal Collider Type:", "PetalCollider", "Circle Collider 2D", "Box Collider 2D", "Capsule Collider 2D", "No Collider");
 
             AddSpace(root);
 
@@ -79,6 +81,19 @@ namespace FractionGame.Editor.PlantPrefabCreator
             //ToolbarSpacer space = new ToolbarSpacer();
             Label space = new Label("***");
             root.Add(space);
+        }
+
+        private void CreateDropdown(VisualElement root, string label, string key, params string[] options)
+        {
+            DropdownField field = new DropdownField(label);
+
+            foreach (string option in options)
+            {
+                field.choices.Add(option);
+            }
+
+            root.Add(field);
+            fields.Add(key, field);
         }
 
         /// <summary>

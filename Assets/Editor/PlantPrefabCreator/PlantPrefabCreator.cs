@@ -14,9 +14,11 @@ namespace FractionGame.Editor.PlantPrefabCreator
 
         private readonly Sprite stemSprite;
         private readonly float stemSize;
+        private readonly string plantCollider;
 
         private readonly Sprite petalSprite;
         private readonly float petalSize;
+        private readonly string petalCollider;
 
         private readonly float distance;
 
@@ -28,9 +30,11 @@ namespace FractionGame.Editor.PlantPrefabCreator
 
             stemSprite = (Sprite)((ObjectField)inputs["StemSprite"]).value;
             stemSize = ((FloatField)inputs["StemSize"]).value;
+            plantCollider = ((DropdownField)inputs["PlantCollider"]).value;
 
             petalSprite = (Sprite)((ObjectField)inputs["PetalSprite"]).value;
             petalSize = ((FloatField)inputs["PetalSize"]).value;
+            petalCollider = ((DropdownField)inputs["PetalCollider"]).value;
 
             distance = ((FloatField)inputs["Distance"]).value;
         }
@@ -59,7 +63,7 @@ namespace FractionGame.Editor.PlantPrefabCreator
             plantObj.transform.localScale = new Vector3(stemSize, stemSize, 1f);
 
             //Add collider so that Draggable will work
-            plantObj.AddComponent<CircleCollider2D>();
+            AddCollider(plantObj, plantCollider);
 
             return plantObj;
         }
@@ -85,7 +89,7 @@ namespace FractionGame.Editor.PlantPrefabCreator
                 petalObj.transform.localScale = new Vector3(petalSize / stemSize, petalSize / stemSize, 1f);
 
                 //Add collider so that Draggable will work
-                petalObj.AddComponent<CircleCollider2D>();
+                AddCollider(petalObj, petalCollider);
 
                 // Set the position of the petal
                 petalObj.transform.Rotate(0, 0, angle);
@@ -96,6 +100,27 @@ namespace FractionGame.Editor.PlantPrefabCreator
                 float petalZPos = plantObj.transform.position.z - 0.1f;
                 petalObj.transform.position 
                     = new Vector3(petalObj.transform.position.x, petalObj.transform.position.y, petalZPos);
+            }
+        }
+
+        private void AddCollider(GameObject obj, string colliderType)
+        {
+            switch (colliderType)
+            {
+                case "Circle Collider 2D":
+                    obj.AddComponent<CircleCollider2D>();
+                    break;
+                case "Box Collider 2D":
+                    obj.AddComponent<BoxCollider2D>();
+                    break;
+                case "Capsule Collider 2D":
+                    obj.AddComponent<CapsuleCollider2D>();
+                    break;
+                case "No Collider":
+                    break;
+                default:
+                    Debug.LogError("Collider type not implemented");
+                    break;
             }
         }
     }
