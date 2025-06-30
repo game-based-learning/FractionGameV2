@@ -54,7 +54,6 @@ namespace FractionGame.Editor.PlantPrefabCreator
 
             //Add the Plant script component
             Plant plantComp = plantObj.AddComponent<Plant>();
-            //plantComp.Initialize(plantType);
             plantComp.PlantType = plantType;
 
             //Add the sprite
@@ -79,7 +78,6 @@ namespace FractionGame.Editor.PlantPrefabCreator
                 GameObject petalObj = new GameObject("Petal" + i);
                 petalObj.transform.SetParent(plantObj.transform, false);
                 Petal petalComp = petalObj.AddComponent<Petal>();
-                //petalComp.Initialize(plantType);
                 petalComp.PlantType = plantType;    
 
                 //Add the sprite
@@ -97,9 +95,9 @@ namespace FractionGame.Editor.PlantPrefabCreator
                 angle += angleStep;
 
                 //Move the Petal in front of the Plant
-                float petalZPos = plantObj.transform.position.z - 0.1f;
-                petalObj.transform.position 
-                    = new Vector3(petalObj.transform.position.x, petalObj.transform.position.y, petalZPos);
+                //float petalZPos = plantObj.transform.position.z - 0.1f;
+                //petalObj.transform.position 
+                    //= new Vector3(petalObj.transform.position.x, petalObj.transform.position.y, petalZPos);
             }
         }
 

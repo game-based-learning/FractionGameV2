@@ -28,14 +28,6 @@ namespace FractionGame.Utility
             instances.Remove(this);
         }
 
-
-
-        /*/// <summary>
-        /// Attaches current game object to pointer. Requires object to not be held.
-        /// </summary>
-        /// <returns>Returns false if the object is held.</returns>*/
-
-
         /// <summary>
         /// Attaches current game object to pointer. Requires object to not be held.
         /// </summary>
@@ -90,4 +82,3 @@ namespace FractionGame.Utility
         }
     }
 }
-

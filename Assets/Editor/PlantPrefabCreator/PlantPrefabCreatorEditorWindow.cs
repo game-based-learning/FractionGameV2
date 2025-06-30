@@ -95,11 +95,11 @@ namespace FractionGame.Editor.PlantPrefabCreator
             }
         }
 
-        private void OnDisable()
+        /*private void OnDisable()
         {
             //Comment out this line to use default values instead of previous values
             //DOES NOT WORK
             //CustomScriptableSingleton.instance.SavePlantPrefabEditor(fields);
-        }
+        }*/
     }
 }
