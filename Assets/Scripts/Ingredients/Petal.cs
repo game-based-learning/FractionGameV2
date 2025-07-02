@@ -48,27 +48,18 @@ namespace FractionGame.Ingredients
             value = new Fraction(1, plantType.numberOfPetals);
         }
 
-        public override bool Attach(GameObject previousParent)
+        public override bool Attach()
         {
-            if (!base.Attach(previousParent))
+            if (!base.Attach())
             {
                 return false;
             }
 
-            if (!previousParent)
+            Plant plant = transform.GetComponentInParent<Plant>();
+            if (plant)
             {
-                //Petal has already been removed from the Plant
-                return true;
+                plant.HandlePetalDetaching();
             }
-
-            Plant plant = previousParent.GetComponent<Plant>();
-            if (!plant)
-            {
-                Debug.LogError("Petal parent was not a Plant");
-                return true;
-            }
-
-            plant.HandlePetalDetaching();
 
             return true;
         }

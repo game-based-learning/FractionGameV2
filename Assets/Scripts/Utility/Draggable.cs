@@ -31,9 +31,8 @@ namespace FractionGame.Utility
         /// <summary>
         /// Attaches current game object to pointer. Requires object to not be held.
         /// </summary>
-        /// <param name="previousParent">Object that was the parent of the Draggable before it was dragged. (May be null)</param>
         /// <returns>Returns false if the object is held.</returns>
-        public virtual bool Attach(GameObject previousParent)
+        public virtual bool Attach()
         {
             // If already held, ignore
             if (isHeld) return false;

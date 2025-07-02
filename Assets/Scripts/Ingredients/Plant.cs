@@ -24,7 +24,7 @@ namespace FractionGame.Ingredients
             if (numPetalsRemaining == 0)
             {
                 // If no petals left, destroy the plant GameObject
-                Destroy(gameObject);
+                Destroy(gameObject, 0.1f); //Delay is needed to prevent issues with the timing of changes in parenting
             }
         }
 
