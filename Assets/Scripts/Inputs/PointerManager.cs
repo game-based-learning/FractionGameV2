@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utility;
+using FractionGame.Utility;
 
-namespace Inputs
+namespace FractionGame.Inputs
 {
     public class PointerManager : MonoBehaviour
     {
@@ -62,8 +62,8 @@ namespace Inputs
                 {
                     // Attach the draggable item to the pointer object.
                     attached = gameObject;
-                    attached.transform.SetParent(transform);
                     attached.GetComponent<Draggable>().Attach();
+                    attached.transform.SetParent(transform);
                 }
             }
         }
@@ -80,5 +80,3 @@ namespace Inputs
         }
     }
 }
-
-

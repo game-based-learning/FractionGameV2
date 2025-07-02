@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Utility
+namespace FractionGame.Utility
 {
     public abstract class Draggable : MonoBehaviour
     {
@@ -28,14 +28,14 @@ namespace Utility
             instances.Remove(this);
         }
 
-        /**
-         * Attaches current game object to pointer
-         * Requires object to not be held
-         */
-        public virtual void Attach()
+        /// <summary>
+        /// Attaches current game object to pointer. Requires object to not be held.
+        /// </summary>
+        /// <returns>Returns false if the object is held.</returns>
+        public virtual bool Attach()
         {
             // If already held, ignore
-            if (isHeld) return;
+            if (isHeld) return false;
 
             // Send sprite to foreground layer
             GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
@@ -47,21 +47,23 @@ namespace Utility
                 RenormalizeSortingOrder();
             }
             isHeld = true;
+            return true;
         }
 
-        /**
-         * Dettaches current game object from pointer
-         * Requires object to be held
-         */
-        public virtual void Detach()
+        /// <summary>
+        /// Dettaches current game object from pointer. Requires object to be held.
+        /// </summary>
+        /// <returns>Returns false if the object is not held.</returns>
+        public virtual bool Detach()
         {
             // If not held, ignore
-            if (!isHeld) return;
+            if (!isHeld) return false;
 
             // Send sprite to default layer
             GetComponent<SpriteRenderer>().sortingLayerName = "Default";
             GetComponent<SpriteRenderer>().sortingOrder = sortingOrder;
             isHeld = false;
+            return true;
         }
 
         /**
@@ -79,4 +81,3 @@ namespace Utility
         }
     }
 }
-

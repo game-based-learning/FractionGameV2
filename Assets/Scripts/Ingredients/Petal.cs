@@ -1,15 +1,14 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using Utility;
+using FractionGame.Utility;
 
-namespace Ingredients
+namespace FractionGame.Ingredients
 {
-    public class Petal : MonoBehaviour, IIngredient
+    public class Petal : Draggable, IIngredient
     {
-
         private Fraction value;
         private string nameStr; // can't be 'name' because it conflicts with Unity's GameObject name property
-        private PlantType plantType;
+        [SerializeField] private PlantType plantType;
 
         public Fraction Value 
         { 
@@ -22,7 +21,6 @@ namespace Ingredients
                 return value; 
             } 
         }
-
 
         public IngredientType Type { get { return IngredientType.PETAL; } }
 
@@ -44,28 +42,26 @@ namespace Ingredients
             set { plantType = value; }
         }
 
-        /// <summary>
-        /// Initialize should be called by Plant when creating Petal
-        /// </summary>
-        /// <param name="plantType">PlantType of the parent Plant</param>
-        /// <param name="plantZPos">Position on the Z axis of the parent Plant (used to place the Petal in front of the parent Plant)</param>
-        public void Initialize(PlantType plantType, float plantZPos)
+        void Start()
         {
-            this.plantType = plantType; 
-            name = plantType.petalName; 
+            nameStr = plantType.petalName;
             value = new Fraction(1, plantType.numberOfPetals);
+        }
 
-            // Create a GameObject for the sprite and set it as a child of this GameObject
-            GameObject spriteObj = new GameObject("Sprite");
-            spriteObj.transform.SetParent(transform, false);
-            SpriteRenderer spriteRenderer = spriteObj.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = plantType.petalSprite;
+        public override bool Attach()
+        {
+            if (!base.Attach())
+            {
+                return false;
+            }
 
-            spriteObj.transform.localScale = new Vector3(plantType.petalSize, plantType.petalSize, 1f);
+            Plant plant = transform.GetComponentInParent<Plant>();
+            if (plant)
+            {
+                plant.HandlePetalDetaching();
+            }
 
-            //Move the Petal in front of the Plant
-            float petalZPos = plantZPos - 0.1f;
-            transform.position = new Vector3(transform.position.x, transform.position.y, petalZPos);
+            return true;
         }
     }
 }

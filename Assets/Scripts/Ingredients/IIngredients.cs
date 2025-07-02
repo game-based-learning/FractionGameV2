@@ -1,7 +1,7 @@
-﻿using Ingredients;
-using Utility;
+﻿using FractionGame.Ingredients;
+using FractionGame.Utility;
 
-namespace Ingredients
+namespace FractionGame.Ingredients
 {
     public enum IngredientType {PETAL, POTION, CATALYST}
     /**
