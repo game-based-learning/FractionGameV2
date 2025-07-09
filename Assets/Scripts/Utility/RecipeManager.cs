@@ -14,4 +14,5 @@ namespace FractionGame.Utility
             }
             return instance;
         }
+    }
 }
