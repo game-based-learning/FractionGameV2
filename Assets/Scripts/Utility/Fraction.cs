@@ -43,13 +43,27 @@ namespace FractionGame.Utility
         public Fraction()
         {
             numerator = 0;
-            denominator = 1; 
+            denominator = 1;
         }
 
 
         public override string ToString()
         {
             return $"{numerator}/{denominator}";
+        }
+        
+        public static Fraction operator +(Fraction a, Fraction b)
+        {
+            int numerator = a.numerator * b.denominator + b.numerator * a.denominator;
+            int denominator = a.denominator * b.denominator;
+            return new Fraction(numerator, denominator);
+        }
+
+        public static Fraction operator -(Fraction a, Fraction b)
+        {
+          int numerator = a.numerator * b.denominator - b.numerator * a.denominator;
+           int denominator = a.denominator * b.denominator;
+          return new Fraction(numerator, denominator);
         }
 
     }
