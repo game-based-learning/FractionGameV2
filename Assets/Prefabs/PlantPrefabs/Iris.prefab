@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 128900111918030396}
   - component: {fileID: 3502511110617411966}
   - component: {fileID: 305628983937294708}
+  - component: {fileID: 9183669976716965207}
   m_Layer: 0
   m_Name: Petal0
   m_TagString: Untagged
@@ -139,6 +140,33 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.28, y: 0.3}
   m_Direction: 0
+--- !u!50 &9183669976716965207
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737596284772837501}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2925917166664086348
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +330,7 @@ GameObject:
   - component: {fileID: 6284755363096488378}
   - component: {fileID: 9050011660704175714}
   - component: {fileID: 7045972551205364238}
+  - component: {fileID: 3793766928613614605}
   m_Layer: 0
   m_Name: Petal1
   m_TagString: Untagged
@@ -429,6 +458,33 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.28, y: 0.3}
   m_Direction: 0
+--- !u!50 &3793766928613614605
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426341946946640249}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &9139957072443815542
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +497,7 @@ GameObject:
   - component: {fileID: 8906698301927099753}
   - component: {fileID: 3273423413258799638}
   - component: {fileID: 7970646803587874422}
+  - component: {fileID: 5626973081559193352}
   m_Layer: 0
   m_Name: Petal2
   m_TagString: Untagged
@@ -568,3 +625,30 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.28, y: 0.3}
   m_Direction: 0
+--- !u!50 &5626973081559193352
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139957072443815542}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

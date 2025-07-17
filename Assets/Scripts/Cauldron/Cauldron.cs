@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using FractionGame.Ingredients;
 using FractionGame.Utility;
+using Unity.VisualScripting;
 
 namespace FractionGame
 {
@@ -12,7 +13,12 @@ namespace FractionGame
 
         public Fraction Value => value;
         public IReadOnlyList<IIngredient> Ingredients => ingredients.AsReadOnly();
+        private RecipeManager recipeManager;
 
+        void Start()
+        {
+            recipeManager = RecipeManager.GetInstance();
+        }
         public void AddIngredient(IIngredient ingredient)
         {
             if (ingredient == null)
@@ -25,6 +31,12 @@ namespace FractionGame
             value += ingredient.Value;
 
             Debug.Log($"Added {ingredient.Type} '{ingredient.Name}' with value {ingredient.Value}. Total: {value}");
+
+            string recipeName = recipeManager.GetRecipe(ingredients);
+            if (recipeName.NullIfEmpty() != null)
+            {
+                Debug.Log("Current recipe: " + recipeName);
+            }
         }
 
         public void Subtraction()
@@ -54,8 +66,6 @@ namespace FractionGame
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log($"2D Trigger hit with {other.name}");
-
             var ingredient = other.GetComponent<IIngredient>();
             if (ingredient != null)
             {

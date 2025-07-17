@@ -1,5 +1,6 @@
 using FractionGame.Ingredients;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FractionGame.Utility
 {
@@ -17,6 +18,7 @@ namespace FractionGame.Utility
 
             public Recipe(string recipeName, params (string, int)[] pairs)
             {
+                ingredients = new Dictionary<string, int>();
                 this.recipeName = recipeName;
                 // Add each ingredient name and number
                 foreach ((string, int) pair in pairs)
@@ -40,6 +42,7 @@ namespace FractionGame.Utility
         public string GetRecipe(List<IIngredient> incomingIngredients)
         {
             List<(string, int)> countedIngredients = IngredientListToTuples(incomingIngredients);
+
             // Check each recipe
             foreach (Recipe recipe in recipeList)
             {
@@ -47,8 +50,8 @@ namespace FractionGame.Utility
                 // If every single counted ingredient has the right ratio, then it must of a certain recipe
                 foreach (var (ingredientName, ratio) in countedIngredients)
                 {
-                    // If the current ingredient is NOT in the recipe AND does not have the right ratio, ignore this recipe
-                    if (!recipe.ingredients.ContainsKey(ingredientName) && recipe.ingredients[ingredientName] != ratio)
+                    // If the current ingredient is NOT in the recipe OR does not have the right ratio, ignore this recipe
+                    if (!recipe.ingredients.ContainsKey(ingredientName) || recipe.ingredients[ingredientName] != ratio)
                     {
                         isRecipe = false;
                         break;
