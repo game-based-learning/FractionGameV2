@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18566767d868b046add29ce45187a2a, type: 3}
   m_Name: Iris
   m_EditorClassIdentifier: 
-  petalSprite: {fileID: -1349423991985832505, guid: 1b3a5e8b8ce80d940ae997e817ca2ba3, type: 3}
-  petalSize: 5
-  stemSprite: {fileID: -2678759499543837309, guid: ebfa98063ac9b974c9a4c684d9aea730, type: 3}
-  stemSize: 10
-  petalName: irisPetal
+  petalName: IrisPetal
   plantName: Iris
   numberOfPetals: 3
-  distance: 2.5
   sweet: 0
