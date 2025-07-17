@@ -51,21 +51,22 @@ namespace FractionGame
             value = new Fraction(0, 1);
             Debug.Log("Cauldron reset.");
         }
+
         void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log($"2D Trigger hit with {other.name}");
 
-         var ingredient = other.GetComponent<IIngredient>();
-          if (ingredient != null)
-             {
-             Debug.Log($"Accepted ingredient: {ingredient.Name}, value: {ingredient.Value}");
-              AddIngredient(ingredient);
-               Destroy(other.gameObject);
-             }
-          else
+            var ingredient = other.GetComponent<IIngredient>();
+            if (ingredient != null)
             {
-        Debug.Log("Entered object is not an ingredient.");
-             }
+                Debug.Log($"Accepted ingredient: {ingredient.Name}, value: {ingredient.Value}");
+                AddIngredient(ingredient);
+                Destroy(other.gameObject);
+            } 
+            else
+            {
+            Debug.Log("Entered object is not an ingredient.");
+            }
         }
     }
 }
