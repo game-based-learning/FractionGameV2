@@ -32,6 +32,7 @@ namespace FractionGame
 
             Debug.Log($"Added {ingredient.Type} '{ingredient.Name}' with value {ingredient.Value}. Total: {value}");
 
+            // TODO: Once potions are created, this functionality will be moved to the potion creation process
             string recipeName = recipeManager.GetRecipe(ingredients);
             if (recipeName.NullIfEmpty() != null)
             {
