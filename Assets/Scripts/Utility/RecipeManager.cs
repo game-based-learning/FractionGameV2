@@ -47,6 +47,11 @@ namespace FractionGame.Utility
             foreach (Recipe recipe in recipeList)
             {
                 bool isRecipe = true;
+                if (recipe.ingredients.Count != countedIngredients.Count)
+                {
+                    // If current recipe does not have the same number of ingredient types as incoming ingredients skip it
+                    continue;
+                }
                 // If every single counted ingredient has the right ratio, then it must of a certain recipe
                 foreach (var (ingredientName, ratio) in countedIngredients)
                 {
@@ -60,9 +65,6 @@ namespace FractionGame.Utility
                 if (isRecipe)
                 {
                     return recipe.recipeName;
-                } else
-                {
-                    isRecipe = false;
                 }
             }
             // If no recipe was found, then return an empty string
@@ -71,25 +73,25 @@ namespace FractionGame.Utility
 
         private List<(string, int)> IngredientListToTuples(List<IIngredient> incomingIngredients)
         {
-            Dictionary<IIngredient, int> ingredientCount = new Dictionary<IIngredient, int>();
+            Dictionary<string, int> ingredientCount = new Dictionary<string, int>();
             // Count up all the ingredients
             foreach (IIngredient ingredient in incomingIngredients)
             {
-                if (ingredientCount.ContainsKey(ingredient))
+                if (ingredientCount.ContainsKey(ingredient.Name))
                 {
-                    ingredientCount[ingredient]++;
+                    ingredientCount[ingredient.Name]++;
                 }
                 else
                 {
-                    ingredientCount.Add(ingredient, 1);
+                    ingredientCount.Add(ingredient.Name, 1);
                 }
             }
 
             // Convert to counted ingredients
             List<(string, int)> countedIngredients = new List<(string, int)>();
-            foreach (var (ingredient, count) in ingredientCount)
+            foreach (var (ingredientName, count) in ingredientCount)
             {
-                countedIngredients.Add((ingredient.Name, count));
+                countedIngredients.Add((ingredientName, count));
             }
             return countedIngredients;
         }
