@@ -1,5 +1,6 @@
 using FractionGame.Ingredients;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FractionGame.Utility
@@ -87,13 +88,37 @@ namespace FractionGame.Utility
                 }
             }
 
+            // Find the GCD of the ingredient counts
+            int gcd = ingredientCount.Values.Aggregate((a, b) => GCD(a, b));
+
             // Convert to counted ingredients
             List<(string, int)> countedIngredients = new List<(string, int)>();
             foreach (var (ingredientName, count) in ingredientCount)
             {
-                countedIngredients.Add((ingredientName, count));
+                countedIngredients.Add((ingredientName, count / gcd));
             }
             return countedIngredients;
+        }
+
+        private int GCD(int a, int b)
+        {
+            // Requires a to be larger or equal to b
+            if (a < b)
+            {
+                int temp = b;
+                b = a; 
+                a = temp;
+            }
+            int r = 1;
+            // If remainder is 0, b is the GCD
+            while (true)
+            {
+                r = a % b;
+                if (r == 0) break;
+                a = b;
+                b = r;
+            }
+            return b;
         }
 
         public static RecipeManager GetInstance()
