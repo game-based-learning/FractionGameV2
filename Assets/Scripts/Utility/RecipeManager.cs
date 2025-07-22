@@ -27,7 +27,29 @@ namespace FractionGame.Utility
                     ingredients.Add(pair.Item1, pair.Item2);
                 }
             }
+
+            /**
+             * Compares an incoming ingredient list to see if it matches this recipe. Requires two checks
+             *    - Recipe and ingredient list are of the same length
+             *    - All items in the list can be found in the correct ratio in the recipe
+             */
+            public bool isTypeOf(List<(string, int)> ingredientList)
+            {
+                // If current recipe does not have the same number of ingredient types as incoming ingredients skip it
+                if (ingredients.Count != ingredientList.Count) return false;
+                foreach (var (ingredientName, ratio) in ingredientList)
+                {
+                    // If the current ingredient is NOT in the recipe OR does not have the right ratio, ignore this recipe
+                    if (!ingredients.ContainsKey(ingredientName) || ingredients[ingredientName] != ratio) return false;
+                }
+
+                // Otherwise, return true
+                return true;
+            }
         }
+
+
+
         //----------
         private RecipeManager()
         {
@@ -40,30 +62,21 @@ namespace FractionGame.Utility
             };
         }
 
+        /**
+         * Method to check if the current list of ingredients is of a certain recipe type.
+         * 
+         * The function will first normalize the incoming ingredients list to a list of tuples of the following form:
+         *      (ingredient name, ratio of this ingredient in the ingredient list)
+         * Finally, returns the name of the recipe found. Returns an empty string if no recipe matches
+         */
         public string GetRecipe(List<IIngredient> incomingIngredients)
         {
             List<(string, int)> countedIngredients = IngredientListToTuples(incomingIngredients);
 
-            // Check each recipe
             foreach (Recipe recipe in recipeList)
             {
-                bool isRecipe = true;
-                if (recipe.ingredients.Count != countedIngredients.Count)
-                {
-                    // If current recipe does not have the same number of ingredient types as incoming ingredients skip it
-                    continue;
-                }
-                // If every single counted ingredient has the right ratio, then it must of a certain recipe
-                foreach (var (ingredientName, ratio) in countedIngredients)
-                {
-                    // If the current ingredient is NOT in the recipe OR does not have the right ratio, ignore this recipe
-                    if (!recipe.ingredients.ContainsKey(ingredientName) || recipe.ingredients[ingredientName] != ratio)
-                    {
-                        isRecipe = false;
-                        break;
-                    }
-                }
-                if (isRecipe)
+                // For each recipe, check if the list follows the recipe
+                if (recipe.isTypeOf(countedIngredients))
                 {
                     return recipe.recipeName;
                 }
@@ -72,6 +85,10 @@ namespace FractionGame.Utility
             return string.Empty;
         }
 
+        /**
+         * Collects all incoming ingredients into a list of tuples.
+         * All duplicates are then tallied up and converted to ratios for ease of recipe identification
+         */
         private List<(string, int)> IngredientListToTuples(List<IIngredient> incomingIngredients)
         {
             Dictionary<string, int> ingredientCount = new Dictionary<string, int>();
@@ -88,7 +105,8 @@ namespace FractionGame.Utility
                 }
             }
 
-            // Find the GCD of the ingredient counts
+            // Use the aggregate function to find the joint GCD between every ingredient count
+            // https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.aggregate?view=net-9.0
             int gcd = ingredientCount.Values.Aggregate((a, b) => GCD(a, b));
 
             // Convert to counted ingredients
@@ -100,6 +118,11 @@ namespace FractionGame.Utility
             return countedIngredients;
         }
 
+        /**
+         * Simple GCD function to aid in converting ingredient counts to ratios.
+         * Uses the euclidean algorithm of finding GCD's
+         * https://www.w3schools.com/dsa/dsa_ref_euclidean_algorithm.php
+         */
         private int GCD(int a, int b)
         {
             // Requires a to be larger or equal to b
