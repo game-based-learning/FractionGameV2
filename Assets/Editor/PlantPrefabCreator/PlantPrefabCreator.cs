@@ -61,9 +61,6 @@ namespace FractionGame.Editor.PlantPrefabCreator
             spriteRenderer.sprite = stemSprite;
             plantObj.transform.localScale = new Vector3(stemSize, stemSize, 1f);
 
-            Rigidbody2D rb = plantObj.AddComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Kinematic;
-
             //Add collider so that Draggable will work
             AddCollider(plantObj, plantCollider);
 
@@ -91,6 +88,9 @@ namespace FractionGame.Editor.PlantPrefabCreator
 
                 //Add collider so that Draggable will work
                 AddCollider(petalObj, petalCollider);
+
+                Rigidbody2D rb = petalObj.AddComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Kinematic;
 
                 // Set the position of the petal
                 petalObj.transform.Rotate(0, 0, angle);

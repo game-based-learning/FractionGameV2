@@ -4,7 +4,7 @@ using FractionGame.Ingredients;
 using FractionGame.Utility;
 using Unity.VisualScripting;
 
-namespace FractionGame
+namespace FractionGame.Cauldron
 {
     public class Cauldron : MonoBehaviour
     {
@@ -19,6 +19,7 @@ namespace FractionGame
         {
             recipeManager = RecipeManager.GetInstance();
         }
+
         public void AddIngredient(IIngredient ingredient)
         {
             if (ingredient == null)
