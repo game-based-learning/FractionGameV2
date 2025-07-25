@@ -13,20 +13,43 @@ namespace FractionGame
         public Fraction Value => value;
         public IReadOnlyList<IIngredient> Ingredients => ingredients.AsReadOnly();
 
-        public void AddIngredient(IIngredient ingredient)
-        {
-            if (ingredient == null)
-            {
-                Debug.LogWarning("Tried to add a null ingredient to the cauldron.");
-                return;
-            }
+       public void AddIngredient(IIngredient ingredient)
+{
+    if (ingredient == null)
+    {
+        Debug.LogWarning("Tried to add a null ingredient to the cauldron.");
+        return;
+    }
 
+    switch (ingredient.Type)
+    {
+        case IngredientType.CATALYST:
+            // Must cast to access multiplier
+            if (ingredient is Catalyst catalyst)
+            {
+                value = value * catalyst.Multiplier;
+                Debug.Log($"Catalyst '{catalyst.Name}' applied. Multiplier: {catalyst.Multiplier}. New total: {value}");
+            }
+            else
+            {
+                Debug.LogError("Ingredient is marked as CATALYST but not a Catalyst instance.");
+            }
+            break;
+
+        case IngredientType.PETAL:
             ingredients.Add(ingredient);
             value += ingredient.Value;
-
             Debug.Log($"Added {ingredient.Type} '{ingredient.Name}' with value {ingredient.Value}. Total: {value}");
-        }
+            break;
 
+        default:
+            Debug.LogWarning($"Unhandled ingredient type: {ingredient.Type}");
+            break;
+    }
+
+    // Optional: destroy used object
+    Destroy((ingredient as MonoBehaviour)?.gameObject);
+}
         public void Subtraction()
         {
             if (ingredients.Count < 2)
@@ -43,6 +66,8 @@ namespace FractionGame
 
             value = result;
             Debug.Log($"Performed subtraction. Resulting value: {value}");
+
+            
         }
 
         public void ResetCauldron()

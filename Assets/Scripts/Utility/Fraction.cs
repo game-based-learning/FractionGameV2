@@ -51,7 +51,7 @@ namespace FractionGame.Utility
         {
             return $"{numerator}/{denominator}";
         }
-        
+
         public static Fraction operator +(Fraction a, Fraction b)
         {
             int numerator = a.numerator * b.denominator + b.numerator * a.denominator;
@@ -61,9 +61,13 @@ namespace FractionGame.Utility
 
         public static Fraction operator -(Fraction a, Fraction b)
         {
-          int numerator = a.numerator * b.denominator - b.numerator * a.denominator;
-           int denominator = a.denominator * b.denominator;
-          return new Fraction(numerator, denominator);
+            int numerator = a.numerator * b.denominator - b.numerator * a.denominator;
+            int denominator = a.denominator * b.denominator;
+            return new Fraction(numerator, denominator);
+        }
+        public static Fraction operator *(Fraction a, Fraction b)
+        {
+            return new Fraction(a.Numerator * b.Numerator, a.Denominator * b.Denominator);
         }
 
     }
