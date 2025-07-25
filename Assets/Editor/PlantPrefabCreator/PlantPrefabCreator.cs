@@ -89,6 +89,9 @@ namespace FractionGame.Editor.PlantPrefabCreator
                 //Add collider so that Draggable will work
                 AddCollider(petalObj, petalCollider);
 
+                Rigidbody2D rb = petalObj.AddComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Kinematic;
+
                 // Set the position of the petal
                 petalObj.transform.Rotate(0, 0, angle);
                 petalObj.transform.Translate(0, distance, 0);

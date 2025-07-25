@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using FractionGame.Ingredients;
 using FractionGame.Utility;
+using Unity.VisualScripting;
 
-namespace FractionGame
+namespace FractionGame.Cauldron
 {
     public class Cauldron : MonoBehaviour
     {
@@ -12,6 +13,12 @@ namespace FractionGame
 
         public Fraction Value => value;
         public IReadOnlyList<IIngredient> Ingredients => ingredients.AsReadOnly();
+        private RecipeManager recipeManager;
+
+        void Start()
+        {
+            recipeManager = RecipeManager.GetInstance();
+        }
 
         public void AddIngredient(IIngredient ingredient)
         {
@@ -25,6 +32,13 @@ namespace FractionGame
             value += ingredient.Value;
 
             Debug.Log($"Added {ingredient.Type} '{ingredient.Name}' with value {ingredient.Value}. Total: {value}");
+
+            // TODO: Once potions are created, this functionality will be moved to the potion creation process
+            string recipeName = recipeManager.GetRecipe(ingredients);
+            if (recipeName.NullIfEmpty() != null)
+            {
+                Debug.Log("Current recipe: " + recipeName);
+            }
         }
 
         public void Subtraction()
@@ -51,21 +65,20 @@ namespace FractionGame
             value = new Fraction(0, 1);
             Debug.Log("Cauldron reset.");
         }
+
         void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log($"2D Trigger hit with {other.name}");
-
-         var ingredient = other.GetComponent<IIngredient>();
-          if (ingredient != null)
-             {
-             Debug.Log($"Accepted ingredient: {ingredient.Name}, value: {ingredient.Value}");
-              AddIngredient(ingredient);
-               Destroy(other.gameObject);
-             }
-          else
+            var ingredient = other.GetComponent<IIngredient>();
+            if (ingredient != null)
             {
-        Debug.Log("Entered object is not an ingredient.");
-             }
+                Debug.Log($"Accepted ingredient: {ingredient.Name}, value: {ingredient.Value}");
+                AddIngredient(ingredient);
+                Destroy(other.gameObject);
+            } 
+            else
+            {
+            Debug.Log("Entered object is not an ingredient.");
+            }
         }
     }
 }
