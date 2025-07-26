@@ -28,6 +28,9 @@ namespace FractionGame.Cauldron
                 return;
             }
 
+            // TODO: Add a check here to make sure that the fractions are of the same denominator
+            // (in other words, plants are the same type)
+
             ingredients.Add(ingredient);
             value += ingredient.Value;
 
