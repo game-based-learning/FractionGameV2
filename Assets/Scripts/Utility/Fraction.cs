@@ -1,3 +1,4 @@
+using FractionGame.Inputs;
 using UnityEngine;
 
 namespace FractionGame.Utility
@@ -54,17 +55,42 @@ namespace FractionGame.Utility
         
         public static Fraction operator +(Fraction a, Fraction b)
         {
-            int numerator = a.numerator * b.denominator + b.numerator * a.denominator;
-            int denominator = a.denominator * b.denominator;
+            int denominator = CalculateCommonDenominator(a, b);
+            int numerator = denominator / a.denominator * a.numerator + denominator / b.denominator * b.numerator;
             return new Fraction(numerator, denominator);
         }
 
         public static Fraction operator -(Fraction a, Fraction b)
         {
-          int numerator = a.numerator * b.denominator - b.numerator * a.denominator;
-           int denominator = a.denominator * b.denominator;
-          return new Fraction(numerator, denominator);
+            int denominator = CalculateCommonDenominator(a, b);
+            int numerator = denominator / a.denominator * a.numerator - denominator / b.denominator * b.numerator;
+            return new Fraction(numerator, denominator);
         }
 
+        /// <summary>
+        /// Returns the common denominator between two Fractions.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int CalculateCommonDenominator(Fraction a, Fraction b)
+        {
+            /* 
+             * Cases:
+             * 1) a and b are the same
+             * 2) one number is a factor of the other
+             * 3) the two numbers need to be multiplied together to get the common denominator
+             */
+
+            int x = a.denominator;
+            int y = b.denominator;
+
+            if (x == y || x % y == 0)
+                return x;
+            else if (y % x == 0)
+                return y;
+            else
+                return x * y;
+        }
     }
 }
