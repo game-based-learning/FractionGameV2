@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6f884a5ce4339a249a0e302840fbda70
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - containerPrefab: {fileID: 7005025399430696657, guid: 4d31b88dfdf71d140b8294835bcc5715, type: 3}
+  - tickMarkPrefab: {fileID: 3477679034415166263, guid: 008fd3faab955234ca7e38c45ee30217, type: 3}
+  - largeTickPrefab: {instanceID: 0}
+  - smallTickPrefab: {instanceID: 0}
+  - tickMarksParent: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
