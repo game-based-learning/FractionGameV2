@@ -286,9 +286,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   containerPrefab: {fileID: 7005025399430696657, guid: 4d31b88dfdf71d140b8294835bcc5715, type: 3}
-  mainTickPrefab: {fileID: 3477679034415166263, guid: 008fd3faab955234ca7e38c45ee30217, type: 3}
-  sdCount: 1
-  fraction: 0
+  tickPrefab: {fileID: 3477679034415166263, guid: 008fd3faab955234ca7e38c45ee30217, type: 3}
+  subdivisionCount: 4
+  containerSize: 0
+  showFractions: 1
+  simplifyFractions: 1
 --- !u!4 &2078411811
 Transform:
   m_ObjectHideFlags: 0

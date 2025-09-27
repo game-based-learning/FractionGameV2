@@ -1,20 +1,29 @@
 using System;
+using TMPro;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace FractionGame.Cauldron
 {
     public class Subdivisions : MonoBehaviour
     {
+        [SerializeField] private GameObject containerPrefab;
+        [SerializeField] private GameObject tickPrefab;
+
         [SerializeField] private int subdivisionCount;
-        [SerializeField] private double containerSize;
+        [SerializeField] private float containerSize;
         [SerializeField] private bool showFractions;
         [SerializeField] private bool simplifyFractions;
 
         void Start()
         {
+            GameObject containerObject = Instantiate(containerPrefab, this.transform);
+            Bounds containerBounds = containerObject.GetComponent<SpriteRenderer>().bounds;
+
             // Get size for each subdivision
-            double subD = containerSize / subdivisionCount;
-            
+            //float subD = containerSize / subdivisionCount;
+            float subD = containerBounds.extents.y * 2 / subdivisionCount;
+
             // if/else for displaying values as fractions or decimals
             if (showFractions)
             {
@@ -40,6 +49,8 @@ namespace FractionGame.Cauldron
                     }
 
                     Debug.Log($"{fString} at {subD * i:F2}");
+                    GameObject tickObject = Instantiate(tickPrefab, new Vector2(0, subD * i - containerBounds.extents.y), Quaternion.identity, this.transform);
+                    tickObject.GetComponentInChildren<TMP_Text>().text = fString;
                 }
             } 
             else
