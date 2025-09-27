@@ -71,6 +71,12 @@ namespace FractionGame.Cauldron
                 }
             }
         }
+
+        public void ButtonTest()
+        {
+            Debug.Log("test");
+        }
+
         // Found this online
         int GCD(int a, int b) => b == 0 ? a : GCD(b, a % b);
 
