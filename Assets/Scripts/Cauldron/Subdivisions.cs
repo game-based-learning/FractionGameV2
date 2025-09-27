@@ -21,9 +21,10 @@ namespace FractionGame.Cauldron
                 // For each place a subdivion label will be (includes 0)
                 for (int i = 0; i < subdivisionCount + 1; i++)
                 {
-                    // Don't want to show 0 as ?/0 or 1 as 1/1 so don't set fraction
-                    string fString = Convert.ToString(i);
-                    if (i != 0 && i != subdivisionCount)
+                    // Don't want to show 0 as 0/? or 1 as 1/1 so don't set fraction
+                    string fString = "0";
+                    if (i == subdivisionCount) { fString = "1"; }
+                    else if (i != 0)
                     {
                         if (simplifyFractions)
                         {
@@ -46,9 +47,10 @@ namespace FractionGame.Cauldron
                 // For each place a subdivion label will be (includes 0)
                 for (int i = 0; i < subdivisionCount + 1; i++)
                 {
-                    // Don't want to show 0 as 0.00 or 1 as 1.00 so don't set decimal
-                    string dString = Convert.ToString(i);
-                    if (i != 0 && i != subdivisionCount)
+                    // Don't want to show 0 as 0/? or 1 as 1/1 so don't set fraction
+                    string dString = "0";
+                    if (i == subdivisionCount) { dString = "1"; }
+                    else if (i != 0)
                     {
                         // Display label with 2 decimal places
                         dString = $"{i / (float)subdivisionCount:F2}";
