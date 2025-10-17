@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace FractionGame.Cauldron
 {
@@ -9,6 +10,8 @@ namespace FractionGame.Cauldron
     {
         [SerializeField] private GameObject containerPrefab;
         [SerializeField] private GameObject tickPrefab;
+        private GameObject containerObject;
+        private List<GameObject> tickObjects;
 
         [SerializeField] private int subdivisionCount;
         [SerializeField] private float containerSize;
@@ -17,7 +20,14 @@ namespace FractionGame.Cauldron
 
         void Start()
         {
-            GameObject containerObject = Instantiate(containerPrefab, this.transform);
+            DrawContainer();
+        }
+
+        private void DrawContainer()
+        {
+            tickObjects = new List<GameObject>();
+
+            containerObject = Instantiate(containerPrefab, this.transform);
             Bounds containerBounds = containerObject.GetComponent<SpriteRenderer>().bounds;
 
             // Get size for each subdivision
@@ -49,10 +59,11 @@ namespace FractionGame.Cauldron
                     }
 
                     Debug.Log($"{fString} at {subD * i:F2}");
-                    GameObject tickObject = Instantiate(tickPrefab, new Vector2(0, subD * i - containerBounds.extents.y), Quaternion.identity, this.transform);
+                    GameObject tickObject = Instantiate(tickPrefab, new Vector2(-1, subD * i - containerBounds.extents.y), Quaternion.identity, this.transform);
                     tickObject.GetComponentInChildren<TMP_Text>().text = fString;
+                    tickObjects.Add(tickObject);
                 }
-            } 
+            }
             else
             {
                 // For each place a subdivion label will be (includes 0)
@@ -68,13 +79,44 @@ namespace FractionGame.Cauldron
                     }
 
                     Debug.Log($"{dString} at {subD * i:F2}");
+                    GameObject tickObject = Instantiate(tickPrefab, new Vector2(-1, subD * i - containerBounds.extents.y), Quaternion.identity, this.transform);
+                    tickObject.GetComponentInChildren<TMP_Text>().text = dString;
+                    tickObjects.Add(tickObject);
                 }
             }
         }
 
-        public void ButtonTest()
+        private void DestroyAll()
         {
-            Debug.Log("test");
+            Destroy(containerObject);
+
+            foreach (GameObject tick in tickObjects)
+            {
+                Destroy(tick);
+            }
+            tickObjects.Clear();
+        }
+
+        public void FlipRep()
+        {
+            DestroyAll();
+            showFractions = !showFractions;
+            DrawContainer();
+        }
+
+        public void SimpUnsimp()
+        {
+            DestroyAll();
+            simplifyFractions = !simplifyFractions;
+            DrawContainer();
+        }
+
+        public void TestSlider(System.Single val)
+        {
+            //Debug.Log(val);
+            DestroyAll();
+            subdivisionCount = (int)val;
+            DrawContainer();
         }
 
         // Found this online
