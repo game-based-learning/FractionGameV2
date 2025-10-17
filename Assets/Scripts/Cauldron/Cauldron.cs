@@ -10,11 +10,11 @@ namespace FractionGame.Cauldron
     {
         private List<IIngredient> ingredients = new List<IIngredient>();//takes ingredients
         private Fraction value = new Fraction(0, 1);
-
+        
         public Fraction Value => value;
         public IReadOnlyList<IIngredient> Ingredients => ingredients.AsReadOnly();
-        private RecipeManager recipeManager;
-
+        public RecipeManager recipeManager;
+        [SerializeField] potion potionPrefab; 
         void Start()
         {
             recipeManager = RecipeManager.GetInstance();
@@ -39,6 +39,13 @@ namespace FractionGame.Cauldron
             {
                 Debug.Log("Current recipe: " + recipeName);
             }
+
+            CreatePotion(ingredient.Name);
+        }
+        public void CreatePotion(string RecipeName) {
+            potion potion = Instantiate(potionPrefab, transform.position, Quaternion.identity);
+            string name = RecipeName;
+            potion.Initialize(value, name);
         }
 
         public void Subtraction()
